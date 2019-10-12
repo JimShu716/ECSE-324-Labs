@@ -13,19 +13,19 @@ LOOP:
 			BEQ DONE            // end loop if counter has reached 0
 			ADD R3, R3, #4      // R3 points to next number in the list
 			LDR R1, [R3]        // R1 holds the next number in the list
-			BL CHECKMIN
+			BL CHECKMIN			// exit to CHECKMIN and leave a link reginster
 			B LOOP              // branch back to the loop
 
 CHECKMIN: 
-			PUSH {LR}
-			CMP R0, R1          // check if it is greater than the maximum
-			BGE UPDATEMIN		// if R0 > R1, go to UPDATEMIN loop
-			BX LR				// return from function call
+			PUSH {LR}			// push link register in a stack
+			CMP R0, R1          // check if R0 is greater than R1
+			BGE UPDATEMIN		// if R0 >= R1, go to UPDATEMIN loop
+			BX LR				// return from function call / go back to the address stored by LR
 
 UPDATEMIN:
-			MOV R0, R1			// set the value of R0 to R1 (which is smaller)
-			POP {LR}
-			BX LR
+			MOV R0, R1			// set the value of R1 to R0 (which is smaller)
+			POP {LR}			// pop out the link register
+			BX LR				// return from function call / go back to the address stored by LR
 
 DONE: 		STR R0, [R4]       	// store the result to the memory location
 
@@ -34,4 +34,4 @@ END: 		B END               // infinite loop!
 
 RESULT:		.word 	0       	// memory assigned for the result location
 N: 			.word	3           // number of entries in the list
-NUMBERS: 	.word	3, 9, 20  	// the list data
+NUMBERS: 	.word	3, -5, 1  	// the list data
