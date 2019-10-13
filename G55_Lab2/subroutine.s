@@ -13,7 +13,7 @@ LOOP:
 			BEQ DONE            // end loop if counter has reached 0
 			ADD R3, R3, #4      // R3 points to next number in the list
 			LDR R1, [R3]        // R1 holds the next number in the list
-			BL CHECKMIN			// exit to CHECKMIN and leave a link reginster
+			BL CHECKMIN			// exit to CHECKMIN and leave a link register
 			B LOOP              // branch back to the loop
 
 CHECKMIN: 
