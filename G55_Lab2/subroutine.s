@@ -20,6 +20,7 @@ CHECKMIN:
 			PUSH {LR}			// push link register in a stack
 			CMP R0, R1          // check if R0 is greater than R1
 			BGE UPDATEMIN		// if R0 >= R1, go to UPDATEMIN loop
+			POP {LR}			// pop out the link register
 			BX LR				// return from function call / go back to the address stored by LR
 
 UPDATEMIN:
