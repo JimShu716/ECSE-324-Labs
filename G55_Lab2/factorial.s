@@ -4,7 +4,7 @@
 _start:
 			LDR R4, =RESULT		// R4 points to the result location
 			LDR R2, [R4, #4]	// R2 holds the number of N
-			MOV R5, #0			// set R5 to 
+			MOV R5, #0			// set R5 to 0
 			MOV R0, #1			// set R0 to 1
 
 MAIN:		
