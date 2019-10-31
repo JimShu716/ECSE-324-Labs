@@ -16,22 +16,22 @@
 		int enable;
 	}	HPS_TIM_config_t;
 	
-  //Note: The argument is a struct pointer!
+  	//Note: The argument is a struct pointer!
 	extern void HPS_TIM_config_ASM(HPS_TIM_config_t *param);	//takes a struct pointer
 	
 
 
-  //reads the value from the s-bit (offset = 0x10)
-  //the nature of the return will depend on 
-  //whether function is able to read the s-bit
-  //value of multiple timers in the same call
+  	//reads the value from the s-bit (offset = 0x10)
+  	//the nature of the return will depend on 
+  	//whether function is able to read the s-bit
+  	//value of multiple timers in the same call
 
 	extern int HPS_TIM_read_INT_ASM(HPS_TIM_t tim);
 
 
 	//resets the s-bit and the f-bit
 	//this function should support multiple timers in
-  //the argument
+  	//the argument
   
 	extern void HPS_TIM_clear_INT_ASM(HPS_TIM_t tim);
 
