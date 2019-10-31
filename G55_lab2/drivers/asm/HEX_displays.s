@@ -81,7 +81,7 @@ flood2:
 			ADD R4, R4, #1 // update the counter
 			B flood45      // check the next HEX
 		  
-HEX_write_ASM:         // R0 will be the destination and R1 will be the wanted value  ????
+HEX_write_ASM:         // R0 will be the destination and R1 will be the wanted value
 check0:   
 			LDR R2, =HEX03 // R2 stores address of HEX 0-3
 			LDR R3, =HEX45 // R3 stores address of HEX 4-5
@@ -162,6 +162,8 @@ checkE:
 			MOV R1, #121 // the code we need is 1111001
 			B write
 checkF:   
+			CMP R1, #15  // check if the wanted value is F
+			BNE END2
 			MOV R1, #113 // the only case left is F and the code we need is 1110001
 			B write		  
 write:	  

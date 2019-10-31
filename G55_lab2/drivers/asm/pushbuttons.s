@@ -53,7 +53,7 @@ PB_clear_edgecp_ASM:
 		  BX LR
 		  
 enable_PB_INT_ASM:
-          LDR R1, =INTER // R1 = address interrupt value
+          LDR R1, =INTER // R1 = address of interrupt value
 		  LDR R2, [R1]   // R2 = interrupt value
 		  ORR R2, R0, R2 // OR with R2, store the result to R2
           STR R2, [R1]   // store the new value back to memory

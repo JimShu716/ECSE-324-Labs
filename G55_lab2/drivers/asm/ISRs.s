@@ -84,6 +84,6 @@ hps_tim0_int_flag:
     .word 0x0
 
 button_interrupt_flag:
-    .word 0x4	
+    .word 0x0	
 	
 	.end
