@@ -11,12 +11,12 @@
 int main(){
 	HPS_TIM_config_t hps_tim0, hps_tim1;
 	int start = 0;	// 0 => do not start, 1 => start
-	int count0 = 0;
- 	int count1 = 0; 
-	int count2 = 0; 
-	int count3 = 0; 
-	int count4 = 0; 
-	int count5 = 0;	// initialize the counts
+	int digit0 = 0;
+ 	int digit1 = 0; 
+	int digit2 = 0; 
+	int digit3 = 0; 
+	int digit4 = 0; 
+	int digit5 = 0;	// initialize the counts
     
     
 	hps_tim0.tim = TIM0;
@@ -41,37 +41,37 @@ int main(){
 		if(start){ // start when start == 1
 			if(HPS_TIM_read_INT_ASM(TIM0)){	// get the count
 				HPS_TIM_clear_INT_ASM(TIM0);
-				count0++;               // base increment
-				if(count0 == 10){		// increment to 10, 0.1s
-					count0 = 0;
-					count1++;
+				digit0++;               // base increment
+				if(digit0 == 10){		// increment to 10, 0.1s
+					digit0 = 0;
+					digit1++;
 				}
-				if(count1 == 10){	    // increment to 10, 1s
-					count1 = 0;
-					count2++;
+				if(digit1 == 10){	    // increment to 10, 1s
+					digit1 = 0;
+					digit2++;
 				}
-				if(count2 == 10){	    // increment to 10, 10s
-					count2 = 0;
-					count3++;
+				if(digit2 == 10){	    // increment to 10, 10s
+					digit2 = 0;
+					digit3++;
 				}
-				if(count3 == 6){         // increment to 6, 1min
-					count3 = 0;
-					count4++;
+				if(digit3 == 6){         // increment to 6, 1min
+					digit3 = 0;
+					digit4++;
 				}
-				if(count4 == 10){        // increment to 10, 10min
-					count4 = 0;
-					count5++;
+				if(digit4 == 10){        // increment to 10, 10min
+					digit4 = 0;
+					digit5++;
 				}
-				if(count5 == 6){         // increment to 6, 1hr
-					count5 = 0;
+				if(digit5 == 6){         // increment to 6, 1hr
+					digit5 = 0;
 				}
 				// write the digits to displays
-				HEX_write_ASM(HEX0, count0);
-				HEX_write_ASM(HEX1, count1);
-				HEX_write_ASM(HEX2, count2);
-				HEX_write_ASM(HEX3, count3);
-				HEX_write_ASM(HEX4, count4);
-				HEX_write_ASM(HEX5, count5);	
+				HEX_write_ASM(HEX0, digit0);
+				HEX_write_ASM(HEX1, digit1);
+				HEX_write_ASM(HEX2, digit2);
+				HEX_write_ASM(HEX3, digit3);
+				HEX_write_ASM(HEX4, digit4);
+				HEX_write_ASM(HEX5, digit5);	
 			}
 		}
 		// read buttons
@@ -79,28 +79,19 @@ int main(){
 			HPS_TIM_clear_INT_ASM(TIM1);
 			if(PB_data_is_pressed_ASM(read_PB_data_ASM()) == 0)	 // button0 pressed => start
 				start = 1;
-			else if(PB_data_is_pressed_ASM(read_PB_data_ASM()) == 1){ // button1 pressed => stop
-				start = 0;
-				while(1){	// start if button0 or button2 pressed
-					if(PB_data_is_pressed_ASM(read_PB_data_ASM()) == 0 || PB_data_is_pressed_ASM(read_PB_data_ASM()) == 2){
-						start = 1;
-						HEX_write_ASM(HEX0|HEX1|HEX2|HEX3|HEX4|HEX5, 0); //set all to 0
-						break;
-					}
-				}	
-			}
+			else if(PB_data_is_pressed_ASM(read_PB_data_ASM()) == 1) // button1 pressed => stop
+				start = 0;	
 			if(PB_data_is_pressed_ASM(read_PB_data_ASM()) == 2){ // button2 pressed => clear 
 				HEX_write_ASM(HEX0|HEX1|HEX2|HEX3|HEX4|HEX5, 0); //set all to 0
-				count0 = 0;
- 				count1 = 0; 
-				count2 = 0; 
-				count3 = 0; 
-				count4 = 0; 
-				count5 = 0;
+				start = 0;
+				digit0 = 0;
+ 				digit1 = 0; 
+				digit2 = 0; 
+				digit3 = 0; 
+				digit4 = 0; 
+				digit5 = 0;
 
 			}
-
-
 		}
 	}
 	return 0;
