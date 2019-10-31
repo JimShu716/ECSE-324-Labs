@@ -17,7 +17,7 @@
 	}	HPS_TIM_config_t;
 	
   	//Note: The argument is a struct pointer!
-	extern void HPS_TIM_config_ASM(HPS_TIM_config_t *param);	//takes a struct pointer
+	extern void HPS_TIM_config_ASM(HPS_TIM_config_t *param);
 	
 
 
