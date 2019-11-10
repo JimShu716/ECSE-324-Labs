@@ -7,9 +7,9 @@
 #include "./drivers/inc/pushbuttons.h"
 
 int main(){
-	// set up timer and button interrupt
 	HPS_TIM_config_t hps_tim; // initialize timer
-	int_setup(2, (int []){199, 73}); // 199 is Interrupt ID for HPS Timer 0, 73 for FPGA Pushbutton KEYs
+	int_setup(2, (int []){199, 73}); // 199 is Interrupt ID for HPS Timer 0, 73 is the value for FPGA Pushbutton KEYs, we can get them in lab manual
+	// set all values to 0 at first
 	int start = 0;
 	int digit0 = 0;
 	int digit1 = 0;
@@ -17,8 +17,7 @@ int main(){
   	int digit3 = 0;
  	int digit4 = 0; 
 	int digit5 = 0;
-    
-    
+    	// set a timer for counting number
 	hps_tim.tim = TIM0;
 	hps_tim.timeout = 10000;
 	hps_tim.LD_en = 1;
@@ -29,7 +28,6 @@ int main(){
 	enable_PB_INT_ASM(PB0|PB1|PB2);
     
 	HEX_write_ASM(HEX0|HEX1|HEX2|HEX3|HEX4|HEX5, 0);
-    
     
 	while(1){		
 		if(start){
@@ -67,20 +65,21 @@ int main(){
 				HEX_write_ASM(HEX5, digit5);
 			}
 		}
-		if(button_interrupt_flag == 1){	// when not interrupted
+		if(button_interrupt_flag == 1){	// when the button pressed is PB0
 			start = 1;
 		}
-		if(button_interrupt_flag == 2){	// when interrupted
+		if(button_interrupt_flag == 2){	// when the button pressed is PB1
 			start = 0;	
 		}
-		if(button_interrupt_flag == 4){	// if 2, reset
+		if(button_interrupt_flag == 4){	// when the button pressed is PB2
+			// set all values to zero
 			digit0 = 0;
 			digit1 = 0;
 			digit2 = 0;
 			digit3 = 0;
 			digit4 = 0;
 			digit5 = 0;
-			HEX_write_ASM(HEX0|HEX1|HEX2|HEX3|HEX4|HEX5, 0); //set all to 0	
+			HEX_write_ASM(HEX0|HEX1|HEX2|HEX3|HEX4|HEX5, 0);	
 			start = 0;
 		}
 	}
