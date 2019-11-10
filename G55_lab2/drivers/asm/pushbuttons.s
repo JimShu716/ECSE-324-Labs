@@ -21,7 +21,7 @@ read_PB_edgecap_ASM:
 		  BX LR		
 		
 PB_data_is_pressed_ASM: 
-          MOV R1, #4   // initialize R1, temporary storage for return value
+          MOV R1, #4   // initialize R1, in order not to affect the result of comparison, we set it to 4
           CMP R0, #8   // check if it is PB3
           MOVEQ R1, #3 // if yes, R1 = 3
 		  CMP R0, #4   // check if it is PB2
@@ -30,11 +30,11 @@ PB_data_is_pressed_ASM:
 		  MOVEQ R1, #1 // if yes, R1 = 1
 		  CMP R0, #1   // check if it is PB0
 	      MOVEQ R1, #0 // if yes, R1 = 0
-		  MOV R0, R1   // R0 (return value) = R1
-		  BX LR	
+		  MOV R0, R1   // set R1 = R0
+		  BX LR		// exit
 		  
-PB_edgecap_is_pressed_ASM:   // use tst , movne
-          MOV R1, #4   // initialize R1, temporary storage for return value
+PB_edgecap_is_pressed_ASM:
+          MOV R1, #4   // initialize R1, in order not to affect the result of comparison, we set it to 4
           CMP R0, #8   // check if it is PB3
           MOVEQ R1, #3 // if yes, R1 = 3
 		  CMP R0, #4   // check if it is PB2
@@ -43,8 +43,8 @@ PB_edgecap_is_pressed_ASM:   // use tst , movne
 		  MOVEQ R1, #1 // if yes, R1 = 1
 		  CMP R0, #1   // check if it is PB0
 	      MOVEQ R1, #0 // if yes, R1 = 0
-		  MOV R0, R1   // R0 (return value) = R1
-		  BX LR		
+		  MOV R0, R1   // set R1 = R0
+		  BX LR		// exit
 		  
 PB_clear_edgecp_ASM:
 		  LDR R0, =EDGE
@@ -55,17 +55,17 @@ PB_clear_edgecp_ASM:
 enable_PB_INT_ASM:
           LDR R1, =INTER // R1 = address of interrupt value
 		  LDR R2, [R1]   // R2 = interrupt value
-		  ORR R2, R0, R2 // OR with R2, store the result to R2
+		  ORR R2, R0, R2 // R0 OR with R2, store the result to R2
           STR R2, [R1]   // store the new value back to memory
-		  BX LR
+		  BX LR	// exit
 
 		  
 disable_PB_INT_ASM:
-          LDR R1, =INTER // get the address
+          LDR R1, =INTER // R1 = address of interrupt value
 		  LDR R1, [R1]   // get the interrupt value
 		  MVN R2, R0	 // get complement of R0
-		  AND R2, R2, R1 // AND with the interrupt value
+		  AND R2, R2, R1 // R2 AND with the interrupt value
 		  STR R2, [R1]	 // store the new value back to memory
-	      BX LR
+	      BX LR	// exit
           
 		  .end
