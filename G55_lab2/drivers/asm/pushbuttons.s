@@ -62,10 +62,10 @@ enable_PB_INT_ASM:
 		  
 disable_PB_INT_ASM:
           LDR R1, =INTER // R1 = address of interrupt value
-		  LDR R1, [R1]   // get the interrupt value
-		  MVN R2, R0	 // get complement of R0
-		  AND R2, R2, R1 // R2 AND with the interrupt value
-		  STR R2, [R1]	 // store the new value back to memory
+		  LDR R2, [R1]   // R2 = interrupt value
+		  MVN R3, R0	 // get complement of R0
+		  AND R3, R3, R2 // R3 AND with the R2
+		  STR R3, [R1]	 // store the new value back to memory
 	      BX LR	// exit
           
 		  .end
