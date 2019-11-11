@@ -9,7 +9,7 @@
 
 int main(){
 	int x = 0;
-  int y = 0;
+	int y = 0;
 	VGA_clear_charbuff_ASM();	
 	char keyboardChar = 0;
 	
