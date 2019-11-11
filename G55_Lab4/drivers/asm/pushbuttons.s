@@ -1,4 +1,4 @@
- .text   
+          .text   
 		  .equ DATA, 0xFF200050
 		  .equ INTER, 0xFF200058
 		  .equ EDGE, 0xFF20005C

@@ -1,4 +1,4 @@
-.text
+			.text
 			.equ	SW_BASE, 0xFF200040
 			.global read_slider_switches_ASM
 
