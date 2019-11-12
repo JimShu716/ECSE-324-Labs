@@ -9,7 +9,7 @@ void test_char() {
 
 	for(y = 0; y <= 59; y++)
 		for(x = 0; x <= 79; x++)
-			VGA_write_byte_ASM(x, y, c++);
+			VGA_write_char_ASM(x, y, c++);
 }
 
 void test_byte() {
