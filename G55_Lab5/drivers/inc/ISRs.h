@@ -1,7 +1,8 @@
 #ifndef _ISRS
 #define _ISRS
-
 	#include "./address_map_arm.h"
+	extern volatile int hps_tim0_int_flag;
+	extern volatile int button_interrupt_flag;   //enable interrupt for the pushbuttons 
 
 	extern void A9_PRIV_TIM_ISR();
 	extern void HPS_GPIO1_ISR();
