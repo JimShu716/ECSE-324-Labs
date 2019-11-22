@@ -8,12 +8,12 @@
 
 write_audio_ASM:
 			LDR R1, =FIFO
-			LDRB R2, [R1, #0]				// Load the address of RARC
-			LDRB R3, [R1, #1]		// Load the address of RALC
+			LDRB R2, [R1, #2]		// Load the address of WSRC
+			LDRB R3, [R1, #3]		// Load the address of WSLC
 			
-			CMP R2, #128			// Compare R2 with the maximum space 128
+			CMP R2, #0			// Compare R2 with the minimum space 0
 			BEQ audio_end			
-			CMP R3, #128			// Compare R3 with the maximum space 128
+			CMP R3, #0			// Compare R3 with the minimum space 0
 			BEQ audio_end
 
 			LDR R4, =LEFT_DATA		// Load the address of LEFT_DATA
