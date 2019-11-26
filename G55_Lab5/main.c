@@ -69,7 +69,7 @@ int main()
 	double generated_sample = 0; // for feeding to the audio codec
     char data = 0;
 
-	int_setup(2, (int []){199, 73}); // 199 for reset, 73 for insert key
+	int_setup(1, (int []){199}); // 199 is Interrupt ID for HPS Timer 0
 
 	// set up timer
 	HPS_TIM_config_t hps_tim0;
@@ -94,8 +94,8 @@ int main()
 					if (data == 0x42) {key[5] = 0;} // K
 					if (data == 0x4B) {key[6] = 0;} // L
 					if (data == 0x4C) {key[7] = 0;} // ;
-					if (data == 0x41) {vol_gain --;}
-					if (data == 0x49) {vol_gain ++;}
+					if (data == 0x41) {vol_gain --;}// , to decrease volume
+					if (data == 0x49) {vol_gain ++;}// . to increase volume
 					break_flag = 0;
 				}
 				else{ // key pressed
